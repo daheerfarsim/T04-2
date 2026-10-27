@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appliance Energy Consumption Website</title>
+  <meta name="description" content="Simple site to estimate appliance energy usage and monthly cost" />
+  <meta name="keywords" content="HTML, CSS, JavaScript" />
+  <meta name="author" content="K M Daheer Farsim" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="container">
+    <h1>Appliance Energy Consumption</h1>
+    <p class="subtitle">Estimate how much electricity your appliances use and what they cost per month.</p>
+  </header>
+
+  <!-- Top navigation with clickable power logo -->
+  
+  <nav class="navbar container" aria-label="Main navigation">
+    <a class="logo" href="#home" aria-label="Go to Home" onclick="navigate('home')">
+      <img src="power-logo.png" alt="Power logo">
+    </a>
+
+    <ul class="navlinks">
+      <li id="nav-home" onclick="navigate('home')">Home</li>
+      <li id="nav-televisions" onclick="navigate('televisions')">Televisions</li>
+      <li id="nav-about" onclick="navigate('about')">About Us</li>
+    </ul>
+  </nav>
+
+  <main class="container grid">
+
+    <!-- ========== HOME ========== -->
+
+    <section id="home" class="card">
+      <h2>What this site does</h2>
+      <p>
+        This tool estimates electricity use and monthly cost for common household appliances in Australia.
+        Enter an appliance wattage, how long you use it, and a tariff (price per kWh) to see the impact.
+      </p>
+
+      <div class="callout">
+        <strong>Australia context (placeholder):</strong>
+        <ul>
+          <li>Electricity is billed per kilowatt-hour (kWh).</li>
+          <li>Tariffs vary by state, retailer and usage tier; use your own bill’s rate for accuracy.</li>
+          <li>Energy Rating Labels (★ to ★★★★★) help compare appliance efficiency.</li>
+        </ul>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Calculator UI (same IDs so your JS works) -->
+
+      <h3>Quick Calculator</h3>
+
+      <div class="field">
+        <label for="appliance">Appliance</label>
+        <select id="appliance">
+          <option value="custom">Custom</option>
+          <option value="tv_led">TV — LED (40–100W)</option>
+          <option value="tv_oled">TV — OLED (90–200W)</option>
+          <option value="fan">Fan — Standing (45–75W)</option>
+          <option value="ac_small">Air Conditioner — 1HP (~750W)</option>
+          <option value="fridge">Fridge — Medium (120–250W)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="power">Power (W)</label>
+        <input id="power" type="number" min="1" step="1" value="100" />
+      </div>
+
+      <div class="field two">
+        <div>
+          <label for="hours">Hours used per day</label>
+          <input id="hours" type="number" min="0" step="0.25" value="4" />
+        </div>
+        <div>
+          <label for="days">Days per month</label>
+          <input id="days" type="number" min="1" max="31" step="1" value="30" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="tariff">Electricity tariff (per kWh)</label>
+        <div class="inline">
+          <select id="currency">
+            <option value="RM">RM</option>
+            <option value="$">$</option>
+            <option value="AUD" selected>AUD</option>
+          </select>
+          <input id="tariff" type="number" min="0" step="0.01" value="0.50" />
+        </div>
+        <small>Tip: Enter the tariff from your own bill for best accuracy.</small>
+      </div>
+
+      <button id="calcBtn" class="btn">Calculate</button>
+
+      <div class="card soft">
+        <h3>Results</h3>
+        <div id="results" class="results">
+          <p>Enter values and click <em>Calculate</em>.</p>
+        </div>
+      </div>
+
+      <div class="card soft">
+        <h3>Compare a few presets</h3>
+        <div class="table-wrap">
+          <table id="compareTable">
+            <thead>
+              <tr>
+                <th>Appliance</th>
+                <th>W</th>
+                <th>kWh/day</th>
+                <th>Cost/month</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TELEVISIONS ========== -->
+
+<section id="televisions" class="card" style="display:none">
+  <h2>Television Energy Use in Australia</h2>
+  <p>
+    Modern TVs vary in power draw. LED/LCD models tend to be lower than similarly sized OLEDs.
+    Actual consumption depends on screen size, brightness, HDR, gaming mode, and standby settings.
+  </p>
+
+  <table class="info-table">
+    <thead>
+      <tr><th>Type</th><th>Typical range (W)</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>LED/LCD (32–55")</td><td>50–120 W</td><td>Lower draw at reduced brightness</td></tr>
+      <tr><td>OLED (48–77")</td><td>90–200 W</td><td>Higher with HDR content</td></tr>
+      <tr><td>Standby (any TV)</td><td>0.3–2 W</td><td>Turn off at the wall to avoid trickle use</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>How to estimate cost:</strong>
+    kWh/day = (Watts ÷ 1000) × hours used.
+    Monthly cost ≈ kWh/day × days × tariff.
+  </div>
+
+  <p class="sources">
+    <em>References (placeholders):</em>
+    <a href="https://www.energyrating.gov.au" target="_blank" rel="noopener">Energy Rating Australia</a> •
+    Your electricity bill (tariff per kWh)
+  </p>
+</section>
+
+    <!-- ========== ABOUT ========== -->
+
+    <section id="about" class="card" style="display:none">
+      <h2>About this project</h2>
+      <p>
+        This site was built for <strong>COS30045 Data Visualisation</strong> to practice basic web development and
+        clear communication about household energy use in the Australian market. Numbers shown here are
+        illustrative placeholders; always check your own appliance label and electricity bill for exact values.
+      </p>
+
+      <h3>Attribution</h3>
+      <ul>
+        <li>Author: K M Daheer Farsim</li>
+        <li>GenAI assistance: content and code refined with ChatGPT (acknowledged per unit policy)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="container foot">
+    <p>&copy; 2026 K M Daheer Farsim • Built for COS30045</p>
+    <p>Code partly generated with help of GenAI (ChatGPT)</p>
+  </footer>
+
+  <!-- Navigation JS (inline for simplicity). Move into main.js if preferred. -->
+
+  <script>
+    function navigate(pageId) {
+      ['home','televisions','about'].forEach(id => {
+        const sec = document.getElementById(id);
+        const nav = document.getElementById('nav-' + id);
+        if (sec) sec.style.display = (id === pageId) ? 'block' : 'none';
+        if (nav) nav.classList.toggle('active', id === pageId);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Default page on first load:
+
+    document.addEventListener('DOMContentLoaded', () => navigate('home'));
+  </script>
+
+  <script src="main.js" defer></script>
+
+  
+</body>
+</html>
