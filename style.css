@@ -236,3 +236,9 @@ td,
     margin-left: 0;
   }
 }
+
+.responsive-svg-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
