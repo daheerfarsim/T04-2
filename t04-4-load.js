@@ -1,8 +1,3 @@
-// Placeholder: we will draw the chart in T04-5.
-function createBarChart(data) {
-  console.log("createBarChart received", data.length, "rows");
-}
-
 // Load the CSV and convert count from text to a number.
 d3.csv("data/tvBrandCount.csv", d => ({
   brand: d.brand,
